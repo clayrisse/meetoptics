@@ -1,67 +1,71 @@
 from bs4 import BeautifulSoup
 import requests
-import scrapy
+
 
 # header just for chrome
 header = {'User-Agent': 'Chrome/96.0.4664.110'}
 s = requests.Session()
 
+opto_url = "https://www.optosigma.com/eu_en/optics/lens/es/spherical-lenses/plano-convex-spherical-lenses/spherical-lens-bk7-plano-convex-uncoated-SLB-P.html"
+thor_url = "https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=112"
+url3 = "https://www.claudialayrisse.com/"
 
-def htmlgetter(url): return BeautifulSoup(
-    s.get(url1, headers=header).content, 'html.parser').prettify()
-# return
+# r1 = requests.get(opto_url, headers=header)
+# with open('file10.txt', 'w') as file1:
+# file.write(r1.text)
 
-
-url1 = "https://www.optosigma.com/eu_en/optics/lens/es/spherical-lenses/plano-convex-spherical-lenses/spherical-lens-bk7-plano-convex-uncoated-SLB-P.html"
-# r1 = s.get(url1, headers=header)
-# soup1 = BeautifulSoup(r1.text, 'html.parser')
-# print(soup1.prettify())
-print(htmlgetter(url1))
-
-# url2 = "https://www.thorlabs.com/newgrouppage9.cfm?objectgroup_id=112"
-# r2 = s.get(url2, headers=header)
-# soup2 = BeautifulSoup(r2.text, 'html.parser')
-# print(soup2.prettify())
+# r2 = requests.get(thor_url)
+# with open('file20.txt', 'w') as file2:
+# file.write(r2.text)
 
 
-# r5 = requests.get('https://api.github.com/events')
-# print(r5)
-# r5.json()
+with open('file2.1.txt', 'r') as thor_html:
+    thor_content = thor_html.read()
+    soup = BeautifulSoup(thor_content, 'lxml')
+    # print(soup)
 
-# print(r5)
+    list = soup.find('div', id='sgContainer')
+    # list = soup.find_all('div', class_='SubGroup')
+    # xx = []
+    print(list)
+    # for each in list:
 
-
-# iframe_src = soup2.find("iframe").attrs['src']
-# print(iframe_src)
-
-# # r3 = s.get("https:{iframe_src}")
-# r3 = s.get("https:{'//claudialayrisse.com'}")
-
-# soup3 = BeautifulSoup(r3.content, "html.parser")
-# print(soup3.prettify())
-
-# for row in soup.select(".history-tb tr"):
-#     print("\t".join([e.text for e in row.select("th, td")]))
-
-# iFrames=[] # qucik bs4 example
-# for iframe in soup("iframe"):
-#     iFrames.append(soup.iframe.extract())
+    #     xx = each.find_all('div', class_='SubGroup')
+    #     # xx = each.find_all('div', class_='SubGroupHeader')
+    #     print(xx)
 
 
-# iFrames = []  # qucik bs4 example
-# iframexx = soup2.find_all('iframe')
-# # for iframe in iframexx:
-# #     print iframe.find_all('html')
-
-# for iframe in iframexx:
-#     response = requests(iframe.attrs['src'])
+# def html_getter(url): return BeautifulSoup(requests.get(
+#     url).text, 'html.parser').prettify()
+#     s.get(url).text, 'html.parser')
 
 
-#     iframe_soup2 = BeautifulSoup(response)
-#     with urllib.request.urlopen('http://python.org/') as response:
-#    html = response.read()
+# print(html_getter(url2))
 
-# print(iframe_soup2.prettify())
+
+# def obj_builder(model, provider, price, diameter, focal_length, center_thickness, edge_thickness, coading, radius_of_curvature):
+#     return {
+#         'model': model,
+#         'provider': provider,
+#         'price': price,
+#         'diameter': diameter,
+#         'focal_length': focal_length,
+#         'center_thickness': center_thickness,
+#         'edge_thickness': edge_thickness,
+#         'coading': coading,
+#         'radius_of_curvature': radius_of_curvature
+#     }
+
+
+# tags = html_getter(url1).find_all(
+#     "div", class_='product-box grouped-container')
+# print(tags)
+# for title in tags:
+#     print(title.text)
+
+# print(tags)
+# print(html_getter(url2).prettify())
+
 
 # {
 #   'LA1116': {
