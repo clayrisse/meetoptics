@@ -24,15 +24,15 @@ with open('file2.1.txt', 'r') as thor_html:
     soup = BeautifulSoup(thor_content, 'lxml')
     # print(soup)
 
-    list = soup.find('div', id='sgContainer')
-    # list = soup.find_all('div', class_='SubGroup')
-    # xx = []
-    print(list)
+    list = soup.find_all('div', class_='SubGroup')
+    qq = soup.find_all('div', id='SG-13372')
+    print(qq)
+
     # for each in list:
 
-    #     xx = each.find_all('div', class_='SubGroup')
-    #     # xx = each.find_all('div', class_='SubGroupHeader')
-    #     print(xx)
+    # xx = each.find_all('div', class_='SubGroup')
+    # xx = each.find_all('div', class_='SubGroupHeader')
+    # print(xx)
 
 
 # def html_getter(url): return BeautifulSoup(requests.get(
