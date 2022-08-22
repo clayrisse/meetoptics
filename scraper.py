@@ -22,64 +22,45 @@ url3 = "https://www.claudialayrisse.com/"
 with open('file2.1.txt', 'r') as thor_html:
     thor_content = thor_html.read()
     soup = BeautifulSoup(thor_content, 'lxml')
-    # print(soup)
 
     list = soup.find_all('div', class_='SubGroup')
-    qq = soup.find_all('div', id='SG-13372')
-    print(qq)
 
-    # for each in list:
+    item_list = soup.find('div', id='sgContainer')
 
-    # xx = each.find_all('div', class_='SubGroup')
-    # xx = each.find_all('div', class_='SubGroupHeader')
-    # print(xx)
+    megalist = {}
+    print(megalist)
+    for each in item_list.children:
+        name = each.find('div', class_='SubGroupTitle').h2.text
+        provider = 'Thorlabs'
 
+        tbody = each.find(
+            'div', class_='row SubGroupDescription').div.table.tbody
 
-# def html_getter(url): return BeautifulSoup(requests.get(
-#     url).text, 'html.parser').prettify()
-#     s.get(url).text, 'html.parser')
+        print('==============================================')
+        price_table = each.find('div', class_='partnumbers').form.table.tbody
 
+        counter = 0
+        for tr in tbody:
+            print('...........')
+            td = tr.text.split('\n')
+            pr_sec1 = price_table.contents[counter].text.split('Uncoated')
 
-# print(html_getter(url2))
+            if len(td) > 2:
+                pr_sec2 = pr_sec1[1].split(' €')
+                model = td[1]
+                megalist[model] = {
+                    'provider': provider,
+                    'name': name,
+                    'diameter': td[2],
+                    'focal_length': td[3],
+                    'radius_of_curvature': td[5],
+                    'center_thickness': td[6],
+                    'edge_thickness': td[7],
+                    'coading': "Uncoated",
+                    'price': f"{pr_sec2[0]} €",
+                    'availability': pr_sec2[1]
+                }
+                counter += 1
 
-
-# def obj_builder(model, provider, price, diameter, focal_length, center_thickness, edge_thickness, coading, radius_of_curvature):
-#     return {
-#         'model': model,
-#         'provider': provider,
-#         'price': price,
-#         'diameter': diameter,
-#         'focal_length': focal_length,
-#         'center_thickness': center_thickness,
-#         'edge_thickness': edge_thickness,
-#         'coading': coading,
-#         'radius_of_curvature': radius_of_curvature
-#     }
-
-
-# tags = html_getter(url1).find_all(
-#     "div", class_='product-box grouped-container')
-# print(tags)
-# for title in tags:
-#     print(title.text)
-
-# print(tags)
-# print(html_getter(url2).prettify())
-
-
-# {
-#   'LA1116': {
-#     'provider': 'Thorlabs',
-#     'price': 19.39,
-#     'diameter': 6.0,
-#     'focal_length': 10.0,
-#     'edge_thickness': 1.5
-#   },
-#   'SLB-20-40P': {
-#     'provider': 'OptoSigma',
-#     'price': 16.40,
-#     'diameter': 20,
-#     'focal_length': 40,
-#     'edge_thickness': 2
-#   }
-# }
+    print('--------')
+    print(megalist)
