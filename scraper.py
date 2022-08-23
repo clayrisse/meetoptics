@@ -116,6 +116,6 @@ with open('html_thorlab.txt', 'r') as thor_html:
 
 print(json_list)
 
-with open('json_list.txt', 'w') as file3:
+with open('json_list.txt', 'w', encoding='utf-8') as file3:
     file3.write(str(json_list))
     # file3.close()
